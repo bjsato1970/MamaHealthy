@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康數據日誌</title>
+    <!-- 引入 Tailwind CSS 方便快速美化介面 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 使用 Google Fonts 讓字體更美觀 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* 移除行動裝置點擊時的藍色背景 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-lg mx-auto p-6 md:p-8 bg-white rounded-2xl shadow-lg">
+        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">健康數據日誌</h1>
+        <p class="text-gray-500 mb-6">請填寫您今天的測量數據。</p>
+
+        <!-- 資料輸入表單 -->
+        <form id="healthForm">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- 日期 -->
+                <div class="md:col-span-2">
+                    <label for="日期" class="block text-sm font-medium text-gray-700 mb-1">日期</label>
+                    <input type="date" id="日期" name="日期" required class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                
+                <!-- 時間 -->
+                <div>
+                    <label for="時間" class="block text-sm font-medium text-gray-700 mb-1">時間</label>
+                    <input type="time" id="時間" name="時間" required class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- 體重 -->
+                <div>
+                    <label for="體重" class="block text-sm font-medium text-gray-700 mb-1">體重</label>
+                    <input type="number" step="0.1" id="體重" name="體重" placeholder="例如: 70.5" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- 早餐飯前血糖 -->
+                <div>
+                    <label for="早餐飯前血糖" class="block text-sm font-medium text-gray-700 mb-1">早餐飯前血糖 (mg/dL)</label>
+                    <input type="number" id="早餐飯前血糖" name="早餐飯前血糖" placeholder="例如: 90" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- 早上血壓 -->
+                <div class="md:col-span-2 grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="早上收縮壓" class="block text-sm font-medium text-gray-700 mb-1">早上收縮壓</label>
+                        <input type="number" id="早上收縮壓" name="早上收縮壓" placeholder="例如: 120" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="早上舒張壓" class="block text-sm font-medium text-gray-700 mb-1">早上舒張壓</label>
+                        <input type="number" id="早上舒張壓" name="早上舒張壓" placeholder="例如: 80" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+
+                <!-- 晚餐飯前血糖 -->
+                <div>
+                    <label for="晚餐飯前血糖" class="block text-sm font-medium text-gray-700 mb-1">晚餐飯前血糖 (mg/dL)</label>
+                    <input type="number" id="晚餐飯前血糖" name="晚餐飯前血糖" placeholder="例如: 90" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <!-- 晚上血壓 -->
+                <div class="md:col-span-2 grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="晚上收縮壓" class="block text-sm font-medium text-gray-700 mb-1">晚上收縮壓</label>
+                        <input type="number" id="晚上收縮壓" name="晚上收縮壓" placeholder="例如: 120" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="晚上舒張壓" class="block text-sm font-medium text-gray-700 mb-1">晚上舒張壓</label>
+                        <input type="number" id="晚上舒張壓" name="晚上舒張壓" placeholder="例如: 80" class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                
+                <!-- 備註 -->
+                <div class="md:col-span-2">
+                    <label for="備註" class="block text-sm font-medium text-gray-700 mb-1">備註</label>
+                    <textarea id="備註" name="備註" rows="3" placeholder="可以記錄今天的運動或飲食狀況..." class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+            </div>
+
+            <!-- 訊息提示區 -->
+            <div id="messageBox" class="mt-4 text-sm text-center font-medium h-5"></div>
+
+            <!-- 提交按鈕 -->
+            <div class="mt-6">
+                <button type="submit" id="submitButton" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300 disabled:bg-gray-400">
+                    儲存紀錄
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // =================================================================
+        // !! 重要 !! 請將此處的網址替換成您自己的 Google Apps Script 網址
+        // =================================================================
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsBzFk_ZjsihoUXK-awEf1XEgXJ40O4qmQeMFTRsJ_7xFfnFVV96q2oaLOuOh6eQhY3Q/exec";
+
+        // 取得表單和相關元素
+        const form = document.getElementById('healthForm');
+        const submitButton = document.getElementById('submitButton');
+        const messageBox = document.getElementById('messageBox');
+
+        // 自動填入今天的日期和目前時間
+        function setDateTime() {
+            const now = new Date();
+            // 格式化日期為 yyyy-MM-dd
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            document.getElementById('日期').value = `${year}-${month}-${day}`;
+            
+            // 格式化時間為 HH:MM
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('時間').value = `${hours}:${minutes}`;
+        }
+
+        // 頁面載入時自動設定日期時間
+        window.onload = setDateTime;
+
+        // 監聽表單提交事件
+        form.addEventListener('submit', async (e) => {
+            // 防止表單的預設提交行為 (重新整理頁面)
+            e.preventDefault();
+
+            // 禁用按鈕，顯示處理中訊息
+            submitButton.disabled = true;
+            submitButton.textContent = '儲存中...';
+            messageBox.textContent = '';
+            messageBox.className = "text-gray-600";
+
+            try {
+                // 使用 FormData 來收集表單所有欄位的資料
+                const formData = new FormData(form);
+                
+                // 使用 fetch API 將資料以 POST 方式送到 Google Apps Script
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                // 解析從 Apps Script 回傳的 JSON 結果
+                const result = await response.json();
+
+                if (result.success) {
+                    // 成功
+                    messageBox.textContent = result.message;
+                    messageBox.className = "text-green-600";
+                    // 清空非日期/時間的欄位，方便下次輸入
+                    form.querySelector('#體重').value = '';
+                    form.querySelector('#早餐飯前血糖').value = '';
+                    form.querySelector('#早上收縮壓').value = '';
+                    form.querySelector('#早上舒張壓').value = '';
+                    form.querySelector('#晚餐飯前血糖').value = '';
+                    form.querySelector('#晚上收縮壓').value = '';
+                    form.querySelector('#晚上舒張壓').value = '';
+                    // **FIXED**: Removed the line that tried to clear the non-existent '心率' field.
+                    form.querySelector('#備註').value = '';
+                    // 重新設定時間為當前時間
+                    setDateTime();
+                } else {
+                    // 失敗
+                    throw new Error(result.message || '發生未知的錯誤');
+                }
+
+            } catch (error) {
+                // 捕獲網路錯誤或從後端傳來的錯誤
+                console.error('Error:', error);
+                messageBox.textContent = `儲存失敗: ${error.message}`;
+                messageBox.className = "text-red-600";
+            } finally {
+                // 無論成功或失敗，最後都恢復按鈕的狀態
+                submitButton.disabled = false;
+                submitButton.textContent = '儲存紀錄';
+            }
+        });
+    </script>
+
+</body>
+</html>
